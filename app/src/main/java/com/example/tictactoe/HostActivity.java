@@ -76,6 +76,5 @@ public class HostActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        th.cancel(true);
     }
 }
