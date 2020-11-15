@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout linearLayout;
     private ImageView[] v;
     private String type;
-
+    private boolean status = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,60 +62,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {//INSERT INTO `tbl_users` (`user_id`, `user_firstname`, `user_lastname`) VALUES (NULL, 'ศิรวิชญ์', 'พิชผล');
         ImageView view = (ImageView) v;
-        view.setImageResource(R.drawable.ic_o);
         TicTacToeClient ticTacToeClient = new TicTacToeClient();
-        if (type.equals("online")) {
-            if (view == img1) {
-                ticTacToeClient.execute("TTP_P1_X0_Y0");
-                TicTacToeServer ticTacToeServer = new TicTacToeServer();
-                ticTacToeServer.execute();
-            }
-            if (view == img2) {
-                ticTacToeClient.execute("TTP_P1_X0_Y1");
+        if(view.getTag() == "") {
+            view.setImageResource(R.drawable.ic_o);
+            if (type.equals("online")) {
+                if (view == img1) {
+                    ticTacToeClient.execute("TTP_P1_X0_Y0");
+                    TicTacToeServer ticTacToeServer = new TicTacToeServer();
+                    ticTacToeServer.execute();
+                }
+                if (view == img2) {
+                    ticTacToeClient.execute("TTP_P1_X0_Y1");
 
-            }
-            if (view == img3) {
-                ticTacToeClient.execute("TTP_P1_X0_Y2");
+                }
+                if (view == img3) {
+                    ticTacToeClient.execute("TTP_P1_X0_Y2");
 
-            }
-            if (view == img4) {
-                ticTacToeClient.execute("TTP_P1_X1_Y0");
+                }
+                if (view == img4) {
+                    ticTacToeClient.execute("TTP_P1_X1_Y0");
 
-            }
-            if (view == img5) {
-                ticTacToeClient.execute("TTP_P1_X1_Y1");
+                }
+                if (view == img5) {
+                    ticTacToeClient.execute("TTP_P1_X1_Y1");
 
-            }
-            if (view == img6) {
-                ticTacToeClient.execute("TTP_P1_X1_Y2");
+                }
+                if (view == img6) {
+                    ticTacToeClient.execute("TTP_P1_X1_Y2");
 
-            }
-            if (view == img7) {
-                ticTacToeClient.execute("TTP_P1_X2_Y0");
+                }
+                if (view == img7) {
+                    ticTacToeClient.execute("TTP_P1_X2_Y0");
 
-            }
-            if (view == img8) {
-                ticTacToeClient.execute("TTP_P1_X2_Y1");
+                }
+                if (view == img8) {
+                    ticTacToeClient.execute("TTP_P1_X2_Y1");
 
-            }
-            if (view == img9) {
-                ticTacToeClient.execute("TTP_P1_X2_Y2");
+                }
+                if (view == img9) {
+                    ticTacToeClient.execute("TTP_P1_X2_Y2");
 
+                }
+                view.setTag("o");
+            } else {
+                view.setTag("o");
+                preCheck();
+                random();
             }
-            view.setTag("o");
-        } else {
-            //random(view);
-
         }
+
 
 
     }
 
-    private void random(View view) {
+    private void random() {
         final int min = 1;
         final int max = 9;
         final int random = new Random().nextInt((max - min) + 1) + min;
-
+        Log.d("ran",String.valueOf(random));
+        if(status)
         switch (random) {
             case 1:
                 if (img1.getTag() == "") {
@@ -171,70 +176,123 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     img9.setTag("x");
                     break;
                 }
+                else{end();}
+
         }
         preCheck();
+    }
+    private void end(){
+        if(img1.getTag() == ""){
+            img1.setImageResource(R.drawable.ic_x);
+            img1.setTag("x");
+            Log.d("end1","1");
+        }
+        else if(img2.getTag() == ""){
+            img2.setImageResource(R.drawable.ic_x);
+            img2.setTag("x");
+            Log.d("end2","1");
+        }
+        else if(img3.getTag() == ""){
+            img3.setImageResource(R.drawable.ic_x);
+            img3.setTag("x");
+            Log.d("end3","1");
+        }
+        else if(img4.getTag() == ""){
+            img4.setImageResource(R.drawable.ic_x);
+            img4.setTag("x");
+            Log.d("end4","1");
+        }
+        else if(img5.getTag() == ""){
+            img5.setImageResource(R.drawable.ic_x);
+            img5.setTag("x");
+            Log.d("end5","1");
+        }
+        else if(img6.getTag() == ""){
+            img6.setImageResource(R.drawable.ic_x);
+            img6.setTag("x");
+            Log.d("end6","1");
+        }
+        else if(img7.getTag() == ""){
+            img7.setImageResource(R.drawable.ic_x);
+            img7.setTag("x");
+            Log.d("end7","1");
+        }
+        else if(img8.getTag() == ""){
+            img8.setImageResource(R.drawable.ic_x);
+            img8.setTag("x");
+            Log.d("end8","1");
+        }
+        else if(img9.getTag() == ""){
+            img9.setImageResource(R.drawable.ic_x);
+            img9.setTag("x");
+            Log.d("end9","1");
+        }
     }
 
     private void preCheck() {
         if (img1.getTag().equals(img2.getTag()) && img2.getTag().equals(img3.getTag())) {
             checkCR(img1, img2, img3);
         }
-        if (img4.getTag().equals(img5.getTag()) && img5.getTag().equals(img6.getTag())) {
+        else if (img4.getTag().equals(img5.getTag()) && img5.getTag().equals(img6.getTag())) {
             checkCR(img4, img5, img6);
         }
-        if (img7.getTag().equals(img8.getTag()) && img8.getTag().equals(img9.getTag())) {
+        else if (img7.getTag().equals(img8.getTag()) && img8.getTag().equals(img9.getTag())) {
             checkCR(img7, img8, img9);
         }
-        if (img1.getTag().equals(img4.getTag()) && img4.getTag().equals(img7.getTag())) {
+        else if (img1.getTag().equals(img4.getTag()) && img4.getTag().equals(img7.getTag())) {
             checkCR(img1, img4, img7);
         }
-        if (img2.getTag().equals(img5.getTag()) && img5.getTag().equals(img8.getTag())) {
+        else if (img2.getTag().equals(img5.getTag()) && img5.getTag().equals(img8.getTag())) {
             checkCR(img2, img5, img8);
         }
-        if (img3.getTag().equals(img6.getTag()) && img6.getTag().equals(img9.getTag())) {
+        else if (img3.getTag().equals(img6.getTag()) && img6.getTag().equals(img9.getTag())) {
             checkCR(img3, img6, img9);
         }
-        if (img1.getTag().equals(img5.getTag()) && img5.getTag().equals(img9.getTag())) {
+        else if (img1.getTag().equals(img5.getTag()) && img5.getTag().equals(img9.getTag())) {
             checkCR(img1, img5, img9);
         }
-        if (img3.getTag().equals(img5.getTag()) && img5.getTag().equals(img7.getTag())) {
+        else if (img3.getTag().equals(img5.getTag()) && img5.getTag().equals(img7.getTag())) {
             checkCR(img3, img5, img7);
+        }
+        else if(!img1.getTag().equals("") && !img2.getTag().equals("") && !img3.getTag().equals("")
+            && !img4.getTag().equals("") && !img5.getTag().equals("") && !img6.getTag().equals("")
+                && !img7.getTag().equals("") && !img8.getTag().equals("") && !img9.getTag().equals("")){
+            show();
+            Snackbar.make(img1, "Equal", Snackbar.LENGTH_SHORT).show();
         }
     }
 
-    private boolean checkCR(ImageView im1, ImageView im2, ImageView im3) {
+    private void checkCR(ImageView im1, ImageView im2, ImageView im3) {
         if (im1.getTag().equals("x")) {
             im1.setImageResource(R.drawable.ic_x_com);
             im2.setImageResource(R.drawable.ic_x_com);
             im3.setImageResource(R.drawable.ic_x_com);
             Snackbar.make(im1, "X Win", Snackbar.LENGTH_SHORT).show();
-            linearLayout.setVisibility(View.VISIBLE);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    clear();
-                    linearLayout.setVisibility(View.GONE);
-                }
-            }, 1500);
-            return true;
+            status=false;
+            show();
+
         } else if (im1.getTag().equals("o")) {
             im1.setImageResource(R.drawable.ic_o_com);
             im2.setImageResource(R.drawable.ic_o_com);
             im3.setImageResource(R.drawable.ic_o_com);
             Snackbar.make(im1, "O Win", Snackbar.LENGTH_SHORT).show();
-            linearLayout.setVisibility(View.VISIBLE);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    clear();
-                    linearLayout.setVisibility(View.GONE);
-                }
-            }, 1500);
-            return true;
+            status=false;
+            show();
         }
-        return false;
+
+
+    }
+    private void show(){
+        linearLayout.setVisibility(View.VISIBLE);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                clear();
+                linearLayout.setVisibility(View.GONE);
+                status=true;
+            }
+        }, 1500);
     }
 
     private void clear() {
@@ -288,7 +346,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String Host = "10.0.2.2";
             int Port = 2222;
             try {
-
                 Socket socketClient = new Socket(Host, Port);
                 DataOutputStream out = new DataOutputStream(socketClient.getOutputStream());
                 out.writeUTF("STU_6003051613168_SIRAVIT_PICHPHOL");
@@ -296,13 +353,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 out.close();
                 socketClient.close();
 
-
             } catch (IOException e) {
                 Log.d("error", e.getLocalizedMessage());
             }
             return "null";
         }
-
     }
 
 
