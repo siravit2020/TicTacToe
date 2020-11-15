@@ -34,13 +34,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout linearLayout;
     private ImageView[] v;
     private String type;
+    private String typeC="";
     private boolean status = true;
+    private boolean status2 = true;
+    String ip;
+    tttConnect tc;
+    tttHost th;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         linearLayout = findViewById(R.id.linear);
         type = getIntent().getStringExtra("type");
+        typeC = getIntent().getStringExtra("c_h");
+        Log.d("type",typeC);
+        if(typeC.equals("client"))
+        ip = getIntent().getStringExtra("ip");
+
+
+
         img1 = findViewById(R.id.img1);
         img2 = findViewById(R.id.img2);
         img3 = findViewById(R.id.img3);
@@ -55,56 +67,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             imageView.setTag("");
             imageView.setOnClickListener(this);
         }
-
-
+        if(typeC.equals("host")){
+            Log.d("host","start");
+            th = new tttHost();
+            th.execute();
+        }
     }
 
     @Override
-    public void onClick(View v) {//INSERT INTO `tbl_users` (`user_id`, `user_firstname`, `user_lastname`) VALUES (NULL, 'ศิรวิชญ์', 'พิชผล');
+    public void onClick(View v) {
         ImageView view = (ImageView) v;
-        TicTacToeClient ticTacToeClient = new TicTacToeClient();
+        //TicTacToeClient ticTacToeClient = new TicTacToeClient();
+        tc = new tttConnect();
         if(view.getTag() == "") {
             view.setImageResource(R.drawable.ic_o);
-            if (type.equals("online")) {
+            if (type.equals("online") && typeC.equals("client")) {
                 if (view == img1) {
-                    ticTacToeClient.execute("TTP_P1_X0_Y0");
-                    TicTacToeServer ticTacToeServer = new TicTacToeServer();
-                    ticTacToeServer.execute();
+                    //ticTacToeClient.execute("TTP_P1_X0_Y0");
+                    tc.execute();
                 }
                 if (view == img2) {
-                    ticTacToeClient.execute("TTP_P1_X0_Y1");
-
+                    //ticTacToeClient.execute("TTP_P1_X0_Y1");
+                    tc.execute();
                 }
                 if (view == img3) {
-                    ticTacToeClient.execute("TTP_P1_X0_Y2");
-
+                    //ticTacToeClient.execute("TTP_P1_X0_Y2");
+                    tc.execute();
                 }
                 if (view == img4) {
-                    ticTacToeClient.execute("TTP_P1_X1_Y0");
-
+                    //ticTacToeClient.execute("TTP_P1_X1_Y0");
+                    tc.execute();
                 }
                 if (view == img5) {
-                    ticTacToeClient.execute("TTP_P1_X1_Y1");
-
+                    //ticTacToeClient.execute("TTP_P1_X1_Y1");
+                    tc.execute();
                 }
                 if (view == img6) {
-                    ticTacToeClient.execute("TTP_P1_X1_Y2");
-
+                    //ticTacToeClient.execute("TTP_P1_X1_Y2");
+                    tc.execute();
                 }
                 if (view == img7) {
-                    ticTacToeClient.execute("TTP_P1_X2_Y0");
-
+                    //ticTacToeClient.execute("TTP_P1_X2_Y0");
+                    tc.execute();
                 }
                 if (view == img8) {
-                    ticTacToeClient.execute("TTP_P1_X2_Y1");
-
+                    //ticTacToeClient.execute("TTP_P1_X2_Y1");
+                    tc.execute();
                 }
                 if (view == img9) {
-                    ticTacToeClient.execute("TTP_P1_X2_Y2");
-
+                    //ticTacToeClient.execute("TTP_P1_X2_Y2");
+                    tc.execute();
                 }
                 view.setTag("o");
-            } else {
+                preCheck();
+            }
+            else if(type.equals("online")&& typeC.equals("host")){
+
+            }
+            else {
                 view.setTag("o");
                 preCheck();
                 random();
@@ -233,33 +253,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (img1.getTag().equals(img2.getTag()) && img2.getTag().equals(img3.getTag())) {
             checkCR(img1, img2, img3);
         }
-        else if (img4.getTag().equals(img5.getTag()) && img5.getTag().equals(img6.getTag())) {
+        if (img4.getTag().equals(img5.getTag()) && img5.getTag().equals(img6.getTag())) {
             checkCR(img4, img5, img6);
         }
-        else if (img7.getTag().equals(img8.getTag()) && img8.getTag().equals(img9.getTag())) {
+        if (img7.getTag().equals(img8.getTag()) && img8.getTag().equals(img9.getTag())) {
             checkCR(img7, img8, img9);
         }
-        else if (img1.getTag().equals(img4.getTag()) && img4.getTag().equals(img7.getTag())) {
+        if (img1.getTag().equals(img4.getTag()) && img4.getTag().equals(img7.getTag())) {
             checkCR(img1, img4, img7);
         }
-        else if (img2.getTag().equals(img5.getTag()) && img5.getTag().equals(img8.getTag())) {
+        if (img2.getTag().equals(img5.getTag()) && img5.getTag().equals(img8.getTag())) {
             checkCR(img2, img5, img8);
         }
-        else if (img3.getTag().equals(img6.getTag()) && img6.getTag().equals(img9.getTag())) {
+        if (img3.getTag().equals(img6.getTag()) && img6.getTag().equals(img9.getTag())) {
             checkCR(img3, img6, img9);
         }
-        else if (img1.getTag().equals(img5.getTag()) && img5.getTag().equals(img9.getTag())) {
+        if (img1.getTag().equals(img5.getTag()) && img5.getTag().equals(img9.getTag())) {
             checkCR(img1, img5, img9);
         }
-        else if (img3.getTag().equals(img5.getTag()) && img5.getTag().equals(img7.getTag())) {
+        if (img3.getTag().equals(img5.getTag()) && img5.getTag().equals(img7.getTag())) {
             checkCR(img3, img5, img7);
         }
-        else if(!img1.getTag().equals("") && !img2.getTag().equals("") && !img3.getTag().equals("")
-            && !img4.getTag().equals("") && !img5.getTag().equals("") && !img6.getTag().equals("")
-                && !img7.getTag().equals("") && !img8.getTag().equals("") && !img9.getTag().equals("")){
-            show();
-            Snackbar.make(img1, "Equal", Snackbar.LENGTH_SHORT).show();
-        }
+
     }
 
     private void checkCR(ImageView im1, ImageView im2, ImageView im3) {
@@ -278,9 +293,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Snackbar.make(im1, "O Win", Snackbar.LENGTH_SHORT).show();
             status=false;
             show();
+        }else{
+            if(!img1.getTag().equals("") && !img2.getTag().equals("") && !img3.getTag().equals("")
+                    && !img4.getTag().equals("") && !img5.getTag().equals("") && !img6.getTag().equals("")
+                    && !img7.getTag().equals("") && !img8.getTag().equals("") && !img9.getTag().equals("")){
+                show();
+                Snackbar.make(img1, "Equal", Snackbar.LENGTH_SHORT).show();
+            }
         }
 
-
+//192.168.1.4
     }
     private void show(){
         linearLayout.setVisibility(View.VISIBLE);
@@ -311,22 +333,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
 
                 Log.d("start", "start");
-                ServerSocket serverSocket = new ServerSocket(5555);
+                ServerSocket serverSocket = new ServerSocket(2222);
                 serverSocket.setSoTimeout(10000);
                 Socket socket = serverSocket.accept();
                 Log.d("start", "start2");
                 DataInputStream in = new DataInputStream(socket.getInputStream());
-//                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                System.out.println("sss");
                 String data = in.readUTF();
                 in.close();
                 Log.d("tt", data);
                 if (data == "P11") {
                     img1.setImageResource(dra[0]);
                 }
-//                    out.writeUTF("Ack 220 OK!!");
-//                    out.flush();
-//                    out.close();
+
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                out.writeUTF("Ack 220 OK!!");
+                out.writeUTF("Ack 220 OK!!");
+                out.flush();
+                out.close();
                 serverSocket.close();
                 socket.close();
 
@@ -343,14 +366,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected String doInBackground(String... strings) {
             Log.d("ggg", "fff");
-            String Host = "10.0.2.2";
+            String Host = ip;
             int Port = 2222;
             try {
                 Socket socketClient = new Socket(Host, Port);
                 DataOutputStream out = new DataOutputStream(socketClient.getOutputStream());
-                out.writeUTF("STU_6003051613168_SIRAVIT_PICHPHOL");
+                DataInputStream in = new DataInputStream(socketClient.getInputStream());
+                out.writeUTF(strings[0]);
                 out.flush();
+                String data = in.readUTF();
+                in.close();
                 out.close();
+                Log.d("tt", data);
                 socketClient.close();
 
             } catch (IOException e) {
@@ -359,6 +386,80 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return "null";
         }
     }
+
+    class tttConnect extends AsyncTask<String, String, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            Log.d("tc","start");
+            try{
+                Socket socketClient = new Socket(ip, 2222);
+                Log.d("tc","start1");
+
+                Log.d("tc","start2");
+
+                Log.d("tc","start3");
+
+                Log.d("tc","start4");
+                DataOutputStream out = new DataOutputStream(socketClient.getOutputStream());
+                Log.d("tc","start5");
+                out.writeUTF("W2C");
+                Log.d("tc","start6");
+                out.flush();
+                Log.d("tc","start7");
+                DataInputStream in = new DataInputStream(socketClient.getInputStream());
+                String msg = in.readUTF();
+                Log.d("tc","start");
+                System.out.println(msg);
+                if(msg.equals("ACK 220 OK!!")){
+                    tc.cancel(true);
+                    System.out.println("สวยสุดๆ");
+
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+    class tttHost extends AsyncTask<String, String, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+
+            try{
+                ServerSocket serverSocket = new ServerSocket(2222);
+                while(true){
+                    Socket socket = serverSocket.accept();
+                    DataInputStream in = new DataInputStream(socket.getInputStream());
+                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                    try{
+                        while(true){
+
+                            System.out.println("Execute5");
+                            String msg = in.readUTF();
+                            //Received data
+                            System.out.println("Received: "+ msg);
+                            //send data
+
+                            if(msg.equals("W2C")){
+                                out.writeUTF("ACK 220 OK!!");
+                                System.out.println("W2C ACC");
+                                break;
+                            }
+                        }
+                    }catch(Exception e){
+                        //
+                    }
+                }
+            }catch(Exception e){
+                //
+            }
+            return null;
+        }
+    }
+
 
 
 }

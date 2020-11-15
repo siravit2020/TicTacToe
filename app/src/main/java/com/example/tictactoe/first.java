@@ -27,7 +27,7 @@ public class first extends AppCompatActivity {
         page2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(first.this,MainActivity.class);
+                Intent intent = new Intent(first.this,Choose.class);
                 intent.putExtra("type","online");
                 startActivity(intent);
             }
