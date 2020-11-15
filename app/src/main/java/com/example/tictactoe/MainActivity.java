@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -47,9 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         linearLayout = findViewById(R.id.linear);
         type = getIntent().getStringExtra("type");
         typeC = getIntent().getStringExtra("c_h");
-        Log.d("type",typeC);
-        if(typeC.equals("client"))
-        ip = getIntent().getStringExtra("ip");
+
 
 
 
@@ -67,11 +66,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             imageView.setTag("");
             imageView.setOnClickListener(this);
         }
-        if(typeC.equals("host")){
-            Log.d("host","start");
-            th = new tttHost();
-            th.execute();
+        if(getIntent().hasExtra("c_h")){
+            typeC = getIntent().getStringExtra("c_h");
+            if(typeC.equals("client"))
+                ip = getIntent().getStringExtra("ip");
+            if(typeC.equals("host")){
+                Log.d("host","start");
+                th = new tttHost();
+                th.execute();
+            }
         }
+
+
     }
 
     @Override
@@ -274,6 +280,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (img3.getTag().equals(img5.getTag()) && img5.getTag().equals(img7.getTag())) {
             checkCR(img3, img5, img7);
         }
+        if(!img1.getTag().equals("") && !img2.getTag().equals("") && !img3.getTag().equals("")
+                && !img4.getTag().equals("") && !img5.getTag().equals("") && !img6.getTag().equals("")
+                && !img7.getTag().equals("") && !img8.getTag().equals("") && !img9.getTag().equals("")){
+            show();
+            Snackbar.make(img1, "Equal", Snackbar.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -293,13 +305,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Snackbar.make(im1, "O Win", Snackbar.LENGTH_SHORT).show();
             status=false;
             show();
-        }else{
-            if(!img1.getTag().equals("") && !img2.getTag().equals("") && !img3.getTag().equals("")
-                    && !img4.getTag().equals("") && !img5.getTag().equals("") && !img6.getTag().equals("")
-                    && !img7.getTag().equals("") && !img8.getTag().equals("") && !img9.getTag().equals("")){
-                show();
-                Snackbar.make(img1, "Equal", Snackbar.LENGTH_SHORT).show();
-            }
         }
 
 //192.168.1.4

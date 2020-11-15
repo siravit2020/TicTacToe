@@ -69,4 +69,10 @@ public class Choose extends AppCompatActivity {
             return null;
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        tc.cancel(true);
+    }
 }

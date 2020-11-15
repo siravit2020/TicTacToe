@@ -15,7 +15,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class HostActivity extends AppCompatActivity {
-    private Button cancle;
+
     private String ip;
     private int port;
     private tttHost th;
@@ -25,14 +25,7 @@ public class HostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_host);
         th = new tttHost();
         th.execute();
-        cancle = findViewById(R.id.button_cancle);
-        cancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HostActivity.this, first.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
     class tttHost extends AsyncTask<String, String, Void> {
@@ -80,4 +73,9 @@ public class HostActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        th.cancel(true);
+    }
 }

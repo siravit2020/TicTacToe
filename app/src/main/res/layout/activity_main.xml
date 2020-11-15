@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+
     tools:context=".MainActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,14 +15,34 @@
         android:orientation="vertical"
         android:gravity="center"
         >
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TicTacToe"
-            android:textSize="40dp"
             android:layout_marginBottom="60dp"
-            android:textColor="#222222"
-            />
+            android:padding="8dp"
+            android:backgroundTint="#292929"
+            android:background="@drawable/pp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TicTac"
+                android:textSize="32dp"
+                android:textColor="#FFFFFF"
+                />
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:padding="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Toe"
+                android:textSize="32dp"
+                android:textColor="#222222"
+                android:backgroundTint="#FB8C00"
+                android:background="@drawable/pp"
+                />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"

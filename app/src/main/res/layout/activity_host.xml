@@ -8,21 +8,17 @@
     android:gravity="center"
     tools:context=".HostActivity">
 
-    <TextView
-        android:id="@+id/textView2"
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Waiting . . . "
-        android:textSize="36sp" />
 
+        />
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
-    <Button
-        android:id="@+id/button_cancle"
+        android:layout_marginTop="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancle" />
+        android:text="Searching.."
+        android:textSize="16sp"
+        />
+
 </LinearLayout>
