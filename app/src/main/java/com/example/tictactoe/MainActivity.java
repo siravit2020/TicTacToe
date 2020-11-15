@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         view.setImageResource(R.drawable.ic_o);
        // view.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.ic_x));
         TicTacToeClient ticTacToeClient = new TicTacToeClient();
+        TicTacToeServer ticTacToeServer = new TicTacToeServer();
+        //ticTacToeServer.execute();
         if(view == img1){
             ticTacToeClient.execute("TTP_P1_X0_Y0");
 
@@ -176,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     private class TicTacToeServer extends AsyncTask<String,Integer,String> {
 
-        //ServerSocket serverSocket;
         @SuppressLint("WrongThread")
         @Override
         protected String doInBackground(String... strings) {
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected String doInBackground(String... strings) {
             Log.d("ggg","fff");
-            String Host = "192.168.1.102";
+            String Host = "10.0.2.2";
             int Port = 2222;
             try {
                 Socket socketClient = new Socket(Host,Port);
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 out.writeUTF("STU_6003051613168_SIRAVIT_PICHPHOL");
 
             } catch (IOException e) {
-                Log.d("ggg","fff");
+                Log.d("error",e.getLocalizedMessage());
             }
             return "null";
         }
